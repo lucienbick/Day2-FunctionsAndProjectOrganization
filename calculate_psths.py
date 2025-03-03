@@ -19,7 +19,6 @@ def download_data(url, filename):
 
     return None
 
-
 download_data(url=url, filename=filename)
 
 # %% Load Data
@@ -32,9 +31,12 @@ download_data(url=url, filename=filename)
 
 import xarray as xr
 
-dset = xr.load_dataset(filename)
-trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
-trials
+def extract_trials(filename):
+    dset = xr.load_dataset(filename)
+    trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
+    return trials
+
+trials = extract_trials(filename)
 
 # %% Extract Spike-Time Data
 # Exercise: Make an `extract_spikes(filename)` function, returning the `spikes` variable.
